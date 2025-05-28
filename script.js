@@ -11,4 +11,13 @@ const locationsTransformer = (jsonData) => {
       states.push(state);
     }
   });
+
+  const locations = features.map((f) => {
+    return {
+      name: f.attributes.University_Chapter,
+      latLng: [f.geometry.y, f.geometry.x],
+    };
+  });
+
+  return [states, locations];
 };
