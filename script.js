@@ -1,5 +1,4 @@
-const url =
-  "https://services2.arcgis.com/5I7u4SJE1vUr79JC/arcgis/rest/services/UniversityChapters_Public/FeatureServer/0/query?where=1%3D1&outFields=University_Chapter,City,State&outSR=4326&resultRecordCount=15&f=json";
+import { universityInformation } from "./JASONdata.js";
 
 const locationsTransformer = (jsonData) => {
   const features = jsonData.features;
@@ -21,3 +20,19 @@ const locationsTransformer = (jsonData) => {
 
   return [states, locations];
 };
+
+const [states, locations] = locationsTransformer(universityInformation);
+
+const statesList = document.getElementById("states");
+states.forEach((state) => {
+  const li = document.createElement("li");
+  li.textContent = state;
+  statesList.appendChild(li);
+});
+
+const locationsList = document.getElementById("locations");
+locations.forEach((loc) => {
+  const li = document.createElement("li");
+  li.textContent = `${loc.name} [${loc.latLng[0]}, ${loc.latLng[1]}]`;
+  locationsList.appendChild(li);
+});
